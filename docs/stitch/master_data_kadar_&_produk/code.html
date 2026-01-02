@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gold Shop POS - Master Data</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#196ee6",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111821",
+                        "surface-dark": "#1a222d",
+                        "border-dark": "#2a3441",
+                        "text-secondary": "#9da9b8",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for better look in dark mode */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111821; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a3441; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3c4a5c; 
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased overflow-hidden">
+<div class="flex h-screen w-full">
+<!-- Side Navigation -->
+<aside class="w-72 flex-shrink-0 flex flex-col border-r border-border-dark bg-[#111418]">
+<div class="p-6 flex flex-col gap-6">
+<!-- User Profile -->
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-12 shadow-inner border border-white/10" data-alt="Profile picture of the admin user with a dark blue gradient background" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAHpNwPOf-9IPSTDHa1qVl89rJfzBdSiLL9khk9F5fktUWYyildCpIudhzZDt9f3Phn9LQ5BWCHxWgEilAuskuwJO00JBB_hwltfPM_3TsgFO0y7Xang_uoknmHUFngtyxusvRYCLoLQtGRBWTOBpZC40MAl-KjNxY_Tu0IaFcLHizINkykcAx292XKN0Qk8LWKqvkXgxIi1-CFcCK38XKZnnGgUhEA472JxrkBhz3FCYxkOv4uLQCPJnuW3zul5EJBnFtsm98P7bo");'></div>
+<div class="flex flex-col">
+<h1 class="text-white text-base font-semibold leading-tight">Admin User</h1>
+<p class="text-text-secondary text-xs font-normal">Super Admin</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:bg-surface-dark hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-white" style="font-size: 20px;">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:bg-surface-dark hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-white" style="font-size: 20px;">shopping_cart</span>
+<span class="text-sm font-medium">Transactions</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:bg-surface-dark hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-white" style="font-size: 20px;">inventory_2</span>
+<span class="text-sm font-medium">Inventory</span>
+</a>
+<!-- Active Link -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-surface-dark text-primary shadow-sm border border-border-dark/50" href="#">
+<span class="material-symbols-outlined text-primary fill-1" style="font-size: 20px; font-variation-settings: 'FILL' 1;">database</span>
+<span class="text-sm font-semibold text-white">Master Data</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:bg-surface-dark hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-white" style="font-size: 20px;">bar_chart</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-secondary hover:bg-surface-dark hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-white" style="font-size: 20px;">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-6 border-t border-border-dark">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:text-red-400 transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-size: 20px;">logout</span>
+<span class="text-sm font-medium">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-full min-w-0 bg-background-light dark:bg-background-dark overflow-hidden">
+<!-- Sticky Header -->
+<header class="flex-shrink-0 bg-background-light dark:bg-background-dark border-b border-border-dark z-10">
+<div class="px-8 pt-8 pb-0 max-w-7xl mx-auto w-full">
+<!-- Breadcrumbs -->
+<div class="flex items-center gap-2 mb-4 text-sm">
+<a class="text-text-secondary hover:text-white transition-colors" href="#">Settings</a>
+<span class="text-text-secondary">/</span>
+<span class="text-white font-medium">Master Data</span>
+</div>
+<!-- Title & Description -->
+<div class="flex justify-between items-start mb-6">
+<div>
+<h2 class="text-3xl font-bold text-white tracking-tight mb-2">Master Data Kadar &amp; Produk</h2>
+<p class="text-text-secondary max-w-2xl">Manage gold purity levels (Karat) and define product categories for inventory and sales.</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+<span class="text-xs font-medium text-emerald-500">System Online</span>
+</div>
+</div>
+</div>
+<!-- Tabs -->
+<div class="flex gap-8 relative">
+<a class="group relative pb-4 px-1" href="#">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-size: 18px;">diamond</span>
+<span class="text-sm font-semibold text-white">Gold Purity Levels</span>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-0.5 bg-primary rounded-t-full"></div>
+</a>
+<a class="group relative pb-4 px-1" href="#">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-white transition-colors" style="font-size: 18px;">category</span>
+<span class="text-sm font-medium text-text-secondary group-hover:text-white transition-colors">Product Types</span>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-0.5 bg-transparent group-hover:bg-border-dark transition-colors rounded-t-full"></div>
+</a>
+</div>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-8">
+<div class="max-w-7xl mx-auto w-full flex flex-col gap-6">
+<!-- Toolbar -->
+<div class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-surface-dark p-2 rounded-xl border border-border-dark">
+<div class="relative w-full sm:w-96 group">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">search</span>
+</span>
+<input class="w-full bg-[#111418] border border-border-dark rounded-lg py-2.5 pl-10 pr-4 text-sm text-white placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all" placeholder="Search purity levels..." type="text"/>
+</div>
+<div class="flex items-center gap-3 w-full sm:w-auto">
+<button class="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border-dark bg-[#111418] text-text-secondary hover:text-white hover:bg-border-dark/50 transition-colors text-sm font-medium">
+<span class="material-symbols-outlined" style="font-size: 18px;">filter_list</span>
+                                Filter
+                            </button>
+<button class="flex-1 sm:flex-none items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-primary hover:bg-blue-600 text-white shadow-lg shadow-blue-500/20 transition-all text-sm font-medium flex">
+<span class="material-symbols-outlined" style="font-size: 18px;">add</span>
+                                Add New Level
+                            </button>
+</div>
+</div>
+<!-- Data Table -->
+<div class="bg-surface-dark border border-border-dark rounded-xl overflow-hidden shadow-sm flex flex-col">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-border-dark bg-[#111418]/50">
+<th class="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-text-secondary">Purity Name</th>
+<th class="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-text-secondary">Percentage (%)</th>
+<th class="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-text-secondary">Description</th>
+<th class="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-text-secondary">Last Updated</th>
+<th class="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-text-secondary">Status</th>
+<th class="py-4 px-6 text-xs font-semibold uppercase tracking-wider text-text-secondary text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-dark">
+<!-- Row 1 -->
+<tr class="group hover:bg-border-dark/20 transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-yellow-500/10 flex items-center justify-center border border-yellow-500/20 text-yellow-500 font-bold text-xs">
+                                                    24
+                                                </div>
+<span class="text-white font-medium text-sm">24K / 999</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="font-mono text-sm text-text-secondary group-hover:text-white transition-colors">99.9%</span>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm text-text-secondary truncate max-w-[200px] block">Fine Gold / Logam Mulia standard</span>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm text-text-secondary">Oct 24, 2023</span>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+                                                Active
+                                            </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="text-text-secondary hover:text-white p-2 rounded-lg hover:bg-border-dark transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="group hover:bg-border-dark/20 transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-yellow-500/10 flex items-center justify-center border border-yellow-500/20 text-yellow-500 font-bold text-xs">
+                                                    22
+                                                </div>
+<span class="text-white font-medium text-sm">22K / 916</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="font-mono text-sm text-text-secondary group-hover:text-white transition-colors">91.6%</span>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm text-text-secondary truncate max-w-[200px] block">High quality jewelry</span>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm text-text-secondary">Oct 20, 2023</span>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+                                                Active
+                                            </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="text-text-secondary hover:text-white p-2 rounded-lg hover:bg-border-dark transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="group hover:bg-border-dark/20 transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-yellow-500/10 flex items-center justify-center border border-yellow-500/20 text-yellow-500 font-bold text-xs">
+                                                    18
+                                                </div>
+<span class="text-white font-medium text-sm">18K / 750</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="font-mono text-sm text-text-secondary group-hover:text-white transition-colors">75.0%</span>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm text-text-secondary truncate max-w-[200px] block">Standard jewelry purity</span>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm text-text-secondary">Sep 12, 2023</span>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+                                                Active
+                                            </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="text-text-secondary hover:text-white p-2 rounded-lg hover:bg-border-dark transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="group hover:bg-border-dark/20 transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-yellow-500/10 flex items-center justify-center border border-yellow-500/20 text-yellow-500 font-bold text-xs">
+                                                    37
+                                                </div>
+<span class="text-white font-medium text-sm">375 / 9K</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="font-mono text-sm text-text-secondary group-hover:text-white transition-colors">37.5%</span>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm text-text-secondary truncate max-w-[200px] block">Low purity / Muda</span>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm text-text-secondary">Aug 05, 2023</span>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-red-500/10 text-red-500 border border-red-500/20">
+                                                Inactive
+                                            </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="text-text-secondary hover:text-white p-2 rounded-lg hover:bg-border-dark transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="group hover:bg-border-dark/20 transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-yellow-500/10 flex items-center justify-center border border-yellow-500/20 text-yellow-500 font-bold text-xs">
+                                                    OLD
+                                                </div>
+<span class="text-white font-medium text-sm">Old Gold / Tua</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="font-mono text-sm text-text-secondary group-hover:text-white transition-colors">70.0%</span>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm text-text-secondary truncate max-w-[200px] block">Legacy standard</span>
+</td>
+<td class="py-4 px-6">
+<span class="text-sm text-text-secondary">Aug 01, 2023</span>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+                                                Active
+                                            </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="text-text-secondary hover:text-white p-2 rounded-lg hover:bg-border-dark transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-6 py-4 border-t border-border-dark flex items-center justify-between bg-[#111418]">
+<p class="text-sm text-text-secondary">Showing <span class="text-white font-medium">1-5</span> of <span class="text-white font-medium">12</span> results</p>
+<div class="flex gap-2">
+<button class="px-3 py-1 rounded border border-border-dark text-text-secondary text-sm disabled:opacity-50 hover:bg-border-dark hover:text-white transition-colors" disabled="">Previous</button>
+<button class="px-3 py-1 rounded border border-border-dark text-text-secondary text-sm hover:bg-border-dark hover:text-white transition-colors">Next</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

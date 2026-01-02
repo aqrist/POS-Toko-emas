@@ -39,6 +39,9 @@
                         <x-nav-link :href="route('transactions.index')" :active="request()->routeIs('transactions.*')">
                             {{ __('Transaksi') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('cashier.offline')" :active="request()->routeIs('cashier.offline')">
+                            {{ __('Kasir Offline') }}
+                        </x-nav-link>
                     @endcan
                     @can('view-reports')
                         <x-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.index')">
@@ -123,6 +126,9 @@
             @can('viewAny', \App\Models\Transaction::class)
                 <x-responsive-nav-link :href="route('transactions.index')" :active="request()->routeIs('transactions.*')">
                     {{ __('Transaksi') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('cashier.offline')" :active="request()->routeIs('cashier.offline')">
+                    {{ __('Kasir Offline') }}
                 </x-responsive-nav-link>
             @endcan
             @can('view-reports')

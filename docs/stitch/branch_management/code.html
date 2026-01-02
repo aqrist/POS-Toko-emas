@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Branch Management - GoldPOS Admin</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#196ee6",
+              "background-light": "#f6f7f8",
+              "background-dark": "#111821",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar for table if needed */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111821; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2d3748; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a5568; 
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased overflow-hidden">
+<div class="relative flex h-screen w-full overflow-hidden">
+<!-- Side Navigation Bar -->
+<div class="w-64 flex-shrink-0 flex-col border-r border-slate-800 bg-[#111821] hidden md:flex">
+<div class="flex h-full flex-col justify-between p-4">
+<div class="flex flex-col gap-4">
+<!-- Profile/Brand Section -->
+<div class="flex gap-3 items-center pb-4 border-b border-slate-800">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-slate-700" data-alt="Profile avatar for Super Admin" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBOZpKc3HA3INM7Ag9oV8VN-WhlbNIwb0BQCaAhjDsM6lJ-tIZhUpKkT08GJpjLgRZ-FeHfbLb-T1syWHnsnT3QeHjpQ--SF9F3LxsqfBxAfnOxFLyz0gLA2lk9fpn55CTxzPO2Hq65KgGeW4Eex-xEetST0eYGhBUkCa58GswTlVpRzjmqos-KzRtGUVnlcUgI51ylCCmtlxs80Olytm9KJoY5b9uwOGsETwYep6aMaXR0KRiSFYV6JGzyybugasBQUTlTF0bEdQg");'></div>
+<div class="flex flex-col">
+<h1 class="text-white text-base font-medium leading-none">GoldPOS Admin</h1>
+<p class="text-[#9da9b8] text-xs font-normal mt-1">Super Admin</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#9da9b8] hover:text-white hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#9da9b8] hover:text-white hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">point_of_sale</span>
+<span class="text-sm font-medium">Sales</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#9da9b8] hover:text-white hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+<span class="text-sm font-medium">Inventory</span>
+</a>
+<!-- Active Link -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined text-[20px] fill-1">store</span>
+<span class="text-sm font-medium">Branches</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#9da9b8] hover:text-white hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="text-sm font-medium">Staff</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#9da9b8] hover:text-white hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">bar_chart</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#9da9b8] hover:text-white hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</div>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#9da9b8] hover:text-white cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span class="text-sm font-medium">Logout</span>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<div class="flex-1 flex flex-col h-full overflow-hidden bg-background-light dark:bg-background-dark">
+<!-- Top Header Area -->
+<header class="flex-shrink-0 border-b border-slate-800 bg-[#111821] px-6 py-4">
+<!-- Breadcrumbs -->
+<div class="flex flex-wrap gap-2 items-center mb-2">
+<a class="text-[#9da9b8] text-sm font-medium hover:text-white transition-colors" href="#">Dashboard</a>
+<span class="text-[#9da9b8] text-sm font-medium">/</span>
+<a class="text-[#9da9b8] text-sm font-medium hover:text-white transition-colors" href="#">Settings</a>
+<span class="text-[#9da9b8] text-sm font-medium">/</span>
+<span class="text-primary text-sm font-medium">Branches</span>
+</div>
+<!-- Page Heading & Primary Action -->
+<div class="flex flex-wrap justify-between items-end gap-4">
+<div class="flex flex-col gap-1 max-w-2xl">
+<h2 class="text-white text-3xl font-bold tracking-tight">Branch Management</h2>
+<p class="text-[#9da9b8] text-sm font-normal">Manage physical and digital store locations, track real-time sync status, and configure operational details.</p>
+</div>
+<button class="flex items-center justify-center gap-2 rounded-lg h-10 px-4 bg-primary hover:bg-blue-600 transition-colors text-white text-sm font-bold shadow-lg shadow-blue-900/20">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span class="truncate">Add New Branch</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Content Area -->
+<main class="flex-1 overflow-y-auto p-6">
+<div class="mx-auto max-w-[1400px] flex flex-col gap-6">
+<!-- Search and Filters Bar -->
+<div class="flex flex-col md:flex-row gap-4 items-center justify-between bg-[#1c232e] p-4 rounded-xl border border-slate-800">
+<!-- Search -->
+<div class="relative w-full md:max-w-md">
+<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-[#9da9b8]">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="block w-full rounded-lg border-slate-700 bg-[#111821] text-white placeholder-[#64748b] focus:border-primary focus:ring-1 focus:ring-primary sm:text-sm pl-10 py-2.5 shadow-sm" placeholder="Search by branch name, code, or city..." type="text"/>
+</div>
+<!-- Filters -->
+<div class="flex gap-3 w-full md:w-auto">
+<select class="form-select block w-full md:w-40 rounded-lg border-slate-700 bg-[#111821] text-white focus:border-primary focus:ring-1 focus:ring-primary text-sm py-2.5">
+<option value="all">All Statuses</option>
+<option value="active">Active</option>
+<option value="inactive">Inactive</option>
+<option value="maintenance">Maintenance</option>
+</select>
+<select class="form-select block w-full md:w-40 rounded-lg border-slate-700 bg-[#111821] text-white focus:border-primary focus:ring-1 focus:ring-primary text-sm py-2.5">
+<option value="all">All Regions</option>
+<option value="ny">New York</option>
+<option value="ca">California</option>
+<option value="tx">Texas</option>
+</select>
+<button class="flex items-center justify-center w-10 h-10 rounded-lg border border-slate-700 bg-[#111821] text-[#9da9b8] hover:text-white hover:bg-slate-800 transition-colors" title="Export Data">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</div>
+</div>
+<!-- Data Table Card -->
+<div class="bg-[#1c232e] rounded-xl border border-slate-800 shadow-sm overflow-hidden flex flex-col">
+<div class="overflow-x-auto">
+<table class="w-full text-left text-sm text-[#9da9b8]">
+<thead class="bg-[#111821] text-xs uppercase font-semibold text-[#9da9b8] border-b border-slate-800">
+<tr>
+<th class="px-6 py-4" scope="col">Branch Info</th>
+<th class="px-6 py-4" scope="col">Manager</th>
+<th class="px-6 py-4" scope="col">Location</th>
+<th class="px-6 py-4" scope="col">Status</th>
+<th class="px-6 py-4" scope="col">Last Sync</th>
+<th class="px-6 py-4 text-right" scope="col">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-800">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-white font-medium text-sm">Downtown HQ</span>
+<span class="text-xs font-mono text-[#64748b]">BR-001</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-slate-700 bg-cover bg-center" data-alt="Avatar of Sarah Jenkins" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuATNu3nsmMmTz9WmdosVeG84s-HfwpewaSAlHOd5hDJpp7fzhwlSrJyalB1sAc-bER3YkNm9lyUYKodXapDDEraWDY5LRlbi8W9h9Mda75por2rqAGwHYxmTyaHukt_GXFzm5Z6JgDx72B9cMq4LiYwF9MjupZbV-EaXt6pfbnohjCI5CuiCi1y8dFZ1oAqJfl9lWkl2Ua2CpDtsuEAeB5ptuIAmFpAnDp5Cb8_f66EB_-wvxwNfn85ATRWcTDe4JJzeEvp2-6HuOA");'></div>
+<div class="flex flex-col">
+<span class="text-white text-sm">Sarah Jenkins</span>
+<span class="text-xs">+1 (555) 012-3456</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-white">
+                                            New York, NY
+                                        </td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 rounded-full bg-green-500/10 px-2.5 py-0.5 text-xs font-medium text-green-500 border border-green-500/20">
+<span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                                                Active
+                                            </span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1.5 text-green-400">
+<span class="material-symbols-outlined text-[16px]">cloud_done</span>
+<span class="text-xs font-medium">Just now</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-[#9da9b8] hover:text-white p-1 rounded-md hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-white font-medium text-sm">Mall Outlet West</span>
+<span class="text-xs font-mono text-[#64748b]">BR-002</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-slate-700 bg-cover bg-center" data-alt="Avatar of Michael Chen" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBi4SIGG8nByQI3L_KUS8lvqoGQJ1IuRjHUjEPBvnSYvmMNyzOYUscviJ1O3e0cVRJxcI99kWblrE0zTb4SAe_MwVE_ewSAejU1u2bSsA3cV7fdg92p5PQqJdoCArtLosnELUCytiJ6dHnosmaaATXfUWKOHmOBir8z0IIGeB33xtTfuc5F3OC6FDuLZDeURZ4KcEiu6VIhPk3x6IBA_x4uY_O-bm7pFeWpF1RIN_Ygk_Asdsk4JrAzyZ5-u1lK0dUSvA0Wjy0ieKU");'></div>
+<div class="flex flex-col">
+<span class="text-white text-sm">Michael Chen</span>
+<span class="text-xs">+1 (555) 012-9988</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-white">
+                                            San Francisco, CA
+                                        </td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 rounded-full bg-green-500/10 px-2.5 py-0.5 text-xs font-medium text-green-500 border border-green-500/20">
+<span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                                                Active
+                                            </span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1.5 text-yellow-500">
+<span class="material-symbols-outlined text-[16px]">sync_problem</span>
+<span class="text-xs font-medium">3 hours ago</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-[#9da9b8] hover:text-white p-1 rounded-md hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-white font-medium text-sm">Brooklyn Heights</span>
+<span class="text-xs font-mono text-[#64748b]">BR-005</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-slate-700 bg-cover bg-center flex items-center justify-center text-xs font-medium text-white" data-alt="Initials avatar for David Kim">DK</div>
+<div class="flex flex-col">
+<span class="text-white text-sm">David Kim</span>
+<span class="text-xs">+1 (555) 987-6543</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-white">
+                                            Brooklyn, NY
+                                        </td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 rounded-full bg-slate-500/10 px-2.5 py-0.5 text-xs font-medium text-slate-400 border border-slate-500/20">
+<span class="h-1.5 w-1.5 rounded-full bg-slate-500"></span>
+                                                Inactive
+                                            </span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1.5 text-slate-500">
+<span class="material-symbols-outlined text-[16px]">cloud_off</span>
+<span class="text-xs font-medium">2 days ago</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-[#9da9b8] hover:text-white p-1 rounded-md hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-white font-medium text-sm">Airport Kiosk</span>
+<span class="text-xs font-mono text-[#64748b]">BR-008</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-slate-700 bg-cover bg-center" data-alt="Avatar of Emily Davis" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCkbNSeHp5yDibbrzyI9lSOrcutgrlEFYC4A2N0AGhQ_-_Pb1WUqVrzxamqtg7b1aI2QePoL-2KkOpy_gVCtxm1N0ezJqEtq3iQY2NBIuB-hintXULVSf_jKqXYRvciI5AAr-RIrQz8oCJ_j29d5vtxsTHHyEbdfXA8ZaycFu7p76y4nFAT8nm-USvNc4Mmo4kLt5ZHLee6k38RaD_jXqZpA0mFfGtdcXbFFAXnwGtC0kXXctOkBEAUSlcCKU5JpNc8a2Mtpbio8jA");'></div>
+<div class="flex flex-col">
+<span class="text-white text-sm">Emily Davis</span>
+<span class="text-xs">+1 (555) 456-7890</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-white">
+                                            Queens, NY
+                                        </td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 rounded-full bg-orange-500/10 px-2.5 py-0.5 text-xs font-medium text-orange-500 border border-orange-500/20">
+<span class="h-1.5 w-1.5 rounded-full bg-orange-500"></span>
+                                                Maintenance
+                                            </span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1.5 text-green-400">
+<span class="material-symbols-outlined text-[16px]">cloud_done</span>
+<span class="text-xs font-medium">10 mins ago</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-[#9da9b8] hover:text-white p-1 rounded-md hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-slate-800/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-white font-medium text-sm">Austin North</span>
+<span class="text-xs font-mono text-[#64748b]">BR-012</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-slate-700 bg-cover bg-center" data-alt="Avatar of James Wilson" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBbwgb_44Ie-BXye8yVF3uDDOUsFlVwMABKYx3p1tFVGVZ887w7j-W2E6cVdno7KHdoYxmkQ_sGWVz4pkmRGnc4NcduLXg4MBPT7-W1__quC-JAu6_woOHIWX2SXibyUSxISlyve3AB99eQMxVIXcmlrBvLTPl_4u4DuhtZKhxuGnirRla0Ez2sUtDX5SFU4s8cs7e42ED5o0qK3qK9lGn9JeUiDOS38ha89gjUI0XWBRrbe_LQbP7eKWlMoCmNmI9oXzAKCMXUVx0");'></div>
+<div class="flex flex-col">
+<span class="text-white text-sm">James Wilson</span>
+<span class="text-xs">+1 (555) 234-5678</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-white">
+                                            Austin, TX
+                                        </td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 rounded-full bg-green-500/10 px-2.5 py-0.5 text-xs font-medium text-green-500 border border-green-500/20">
+<span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                                                Active
+                                            </span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1.5 text-red-500">
+<span class="material-symbols-outlined text-[16px]">wifi_off</span>
+<span class="text-xs font-medium">Offline (5h)</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-[#9da9b8] hover:text-white p-1 rounded-md hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_horiz</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="bg-[#111821] px-6 py-4 border-t border-slate-800 flex items-center justify-between">
+<span class="text-xs text-[#9da9b8]">
+                                Displaying <span class="font-medium text-white">1-5</span> of <span class="font-medium text-white">12</span> branches
+                            </span>
+<div class="flex gap-2">
+<button class="flex items-center justify-center h-8 w-8 rounded border border-slate-700 bg-[#1c232e] text-[#9da9b8] hover:bg-slate-700 hover:text-white disabled:opacity-50 transition-colors" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="flex items-center justify-center h-8 w-8 rounded bg-primary text-white text-xs font-medium">
+                                    1
+                                </button>
+<button class="flex items-center justify-center h-8 w-8 rounded border border-slate-700 bg-[#1c232e] text-[#9da9b8] hover:bg-slate-700 hover:text-white text-xs font-medium transition-colors">
+                                    2
+                                </button>
+<button class="flex items-center justify-center h-8 w-8 rounded border border-slate-700 bg-[#1c232e] text-[#9da9b8] hover:bg-slate-700 hover:text-white text-xs font-medium transition-colors">
+                                    3
+                                </button>
+<button class="flex items-center justify-center h-8 w-8 rounded border border-slate-700 bg-[#1c232e] text-[#9da9b8] hover:bg-slate-700 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

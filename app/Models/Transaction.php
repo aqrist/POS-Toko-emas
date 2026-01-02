@@ -21,6 +21,7 @@ class Transaction extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'id',
         'branch_id',
         'user_id',
         'customer_id',

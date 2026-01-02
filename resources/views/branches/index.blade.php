@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 class="text-2xl font-bold leading-tight tracking-tight text-slate-900">
                 {{ __('Cabang') }}
             </h2>
             @can('create', \App\Models\Branch::class)

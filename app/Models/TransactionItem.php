@@ -20,6 +20,7 @@ class TransactionItem extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'id',
         'transaction_id',
         'gold_level_id',
         'product_type',
