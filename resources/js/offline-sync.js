@@ -10,6 +10,10 @@ if (offlineRoot) {
     const totalEl = document.getElementById('offline-total');
     const messageEl = document.getElementById('offline-message');
     const form = document.getElementById('offline-transaction-form');
+    const typeInput = document.getElementById('offline_type');
+    const typeButtons = document.querySelectorAll('[data-transaction-type]');
+    const offlineTitle = document.getElementById('offline-title');
+    const offlineModeLabel = document.getElementById('offline-mode-label');
     const itemsWrapper = document.getElementById('offline-items');
     const addItemButton = document.getElementById('offline-add-item');
     const itemTemplate = document.getElementById('offline-item-template');
@@ -323,7 +327,7 @@ if (offlineRoot) {
 
         const payload = {
             id: crypto.randomUUID(),
-            type: form.querySelector('select[name="type"]').value,
+            type: typeInput?.value || 'sell',
             payment_method: form.querySelector('select[name="payment_method"]').value,
             occurred_at: form.querySelector('input[name="occurred_at"]').value,
             additional_fee: Number(form.querySelector('input[name="additional_fee"]').value || 0),
@@ -359,6 +363,36 @@ if (offlineRoot) {
     });
     window.addEventListener('offline', updateStatus);
     form?.querySelector('input[name="additional_fee"]')?.addEventListener('input', updateTotals);
+
+    typeButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const nextType = button.dataset.transactionType;
+            if (!nextType || !typeInput) {
+                return;
+            }
+
+            typeInput.value = nextType;
+            typeButtons.forEach((btn) => {
+                btn.classList.remove('text-amber-700', 'bg-amber-50', 'ring-1', 'ring-amber-200');
+                btn.classList.remove('text-blue-700', 'bg-blue-50', 'ring-1', 'ring-blue-200');
+                btn.classList.add('text-slate-500');
+            });
+
+            if (nextType === 'buy') {
+                button.classList.add('text-blue-700', 'bg-blue-50', 'ring-1', 'ring-blue-200');
+            } else {
+                button.classList.add('text-amber-700', 'bg-amber-50', 'ring-1', 'ring-amber-200');
+            }
+            button.classList.remove('text-slate-500');
+
+            if (offlineTitle) {
+                offlineTitle.textContent = nextType === 'buy' ? 'Buy Gold Transaction' : 'Sell Gold Transaction';
+            }
+            if (offlineModeLabel) {
+                offlineModeLabel.textContent = nextType === 'buy' ? 'Beli Emas' : 'Jual Emas';
+            }
+        });
+    });
 
     updateStatus();
     renderQueue();

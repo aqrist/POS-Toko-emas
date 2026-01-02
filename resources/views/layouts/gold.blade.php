@@ -17,7 +17,7 @@
         <div class="min-h-screen">
             <div class="flex min-h-screen">
                 @auth
-                    <aside class="hidden w-64 flex-col border-r border-slate-200 bg-white lg:flex">
+                    <aside id="gold-sidebar" class="fixed inset-y-0 left-0 z-40 flex w-64 -translate-x-full flex-col border-r border-slate-200 bg-white transition-transform duration-300 ease-out lg:static lg:translate-x-0">
                         <div class="flex h-full flex-col justify-between p-5">
                             <div class="flex flex-col gap-6">
                                 <div class="flex items-center gap-3">
@@ -85,6 +85,13 @@
                                     <span class="text-xs text-slate-500">{{ Auth::user()->role?->name ?? 'User' }}</span>
                                 </div>
                             </div>
+
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50">
+                                    Logout
+                                </button>
+                            </form>
                         </div>
                     </aside>
 
@@ -96,6 +103,9 @@
                                     <p class="text-sm text-slate-500">Operasional harian kasir dan manajemen data.</p>
                                 </div>
                                 <div class="flex items-center gap-3">
+                                    <button type="button" id="gold-sidebar-toggle" class="inline-flex items-center rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 lg:hidden" aria-expanded="false">
+                                        Menu
+                                    </button>
                                     <span class="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
                                         <span class="relative flex h-2 w-2">
                                             <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
@@ -146,5 +156,25 @@
                 @endguest
             </div>
         </div>
+
+        @auth
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const toggle = document.getElementById('gold-sidebar-toggle');
+                    const sidebar = document.getElementById('gold-sidebar');
+                    if (!toggle || !sidebar) {
+                        return;
+                    }
+
+                    toggle.addEventListener('click', () => {
+                        sidebar.classList.toggle('-translate-x-full');
+                        toggle.setAttribute(
+                            'aria-expanded',
+                            String(!sidebar.classList.contains('-translate-x-full'))
+                        );
+                    });
+                });
+            </script>
+        @endauth
     </body>
 </html>
