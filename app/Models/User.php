@@ -3,14 +3,22 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\RoleName;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, HasUuids, Notifiable;
+
+    public $incrementing = false;
+
+    protected $keyType = 'string';
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +29,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
+        'branch_id',
     ];
 
     /**
@@ -44,5 +54,40 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function hasRole(RoleName $role): bool
+    {
+        return $this->role?->name === $role->value;
+    }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->hasRole(RoleName::SuperAdmin);
+    }
+
+    public function isBranchAdmin(): bool
+    {
+        return $this->hasRole(RoleName::BranchAdmin);
+    }
+
+    public function isCashier(): bool
+    {
+        return $this->hasRole(RoleName::Cashier);
     }
 }

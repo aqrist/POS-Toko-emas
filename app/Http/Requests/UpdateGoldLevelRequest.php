@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Http\Requests;
+
+use App\Models\GoldLevel;
+use Illuminate\Foundation\Http\FormRequest;
+
+class UpdateGoldLevelRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        /** @var GoldLevel $goldLevel */
+        $goldLevel = $this->route('gold_level');
+
+        return [
+            'name' => ['required', 'string', 'max:50', 'unique:gold_levels,name,'.$goldLevel->id],
+            'percentage' => ['required', 'numeric', 'min:0', 'max:100'],
+            'is_active' => ['nullable', 'boolean'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Nama kadar wajib diisi.',
+            'name.unique' => 'Nama kadar sudah digunakan.',
+            'percentage.required' => 'Persentase kadar wajib diisi.',
+        ];
+    }
+}
