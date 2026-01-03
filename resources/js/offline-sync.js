@@ -10,6 +10,9 @@ if (offlineRoot) {
     const totalEl = document.getElementById('offline-total');
     const messageEl = document.getElementById('offline-message');
     const form = document.getElementById('offline-transaction-form');
+    const confirmMessage = document.getElementById('offline-confirm-message');
+    const confirmSubmit = document.getElementById('offline-confirm-submit');
+    const installButton = document.getElementById('install-app');
     const typeInput = document.getElementById('offline_type');
     const typeButtons = document.querySelectorAll('[data-transaction-type]');
     const offlineTitle = document.getElementById('offline-title');
@@ -17,6 +20,9 @@ if (offlineRoot) {
     const itemsWrapper = document.getElementById('offline-items');
     const addItemButton = document.getElementById('offline-add-item');
     const itemTemplate = document.getElementById('offline-item-template');
+    const isIosDevice = /iphone|ipad|ipod/i.test(window.navigator.userAgent);
+    const isStandaloneMode = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    let installPromptEvent = null;
 
     const marketPrice = Number(offlineRoot.dataset.marketPrice || 0);
     const dbPromise = new Promise((resolve, reject) => {
@@ -148,6 +154,14 @@ if (offlineRoot) {
         showMessage.timeoutId = window.setTimeout(() => {
             messageEl.classList.add('hidden');
         }, 4000);
+    };
+
+    const revealInstallButton = () => {
+        if (!installButton || isStandaloneMode) {
+            return;
+        }
+
+        installButton.classList.remove('hidden');
     };
 
     const updateLineTotal = (row) => {
@@ -315,9 +329,7 @@ if (offlineRoot) {
         }
     };
 
-    form?.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
+    const handleSubmit = async () => {
         const items = collectItems().filter((item) => item.gold_level_id);
 
         if (items.length === 0) {
@@ -339,6 +351,47 @@ if (offlineRoot) {
         await renderQueue();
         resetForm();
         showMessage('success', 'Transaksi tersimpan di perangkat (offline).');
+    };
+
+    const openConfirmModal = () => {
+        if (confirmMessage) {
+            confirmMessage.textContent = navigator.onLine
+                ? 'Koneksi terdeteksi. Transaksi akan disimpan di perangkat dan masuk antrian sync.'
+                : 'Anda sedang offline. Transaksi akan disimpan di perangkat dan disinkronkan saat online.';
+        }
+
+        window.dispatchEvent(new CustomEvent('open-modal', { detail: 'confirm-offline-transaction' }));
+    };
+
+    form?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        openConfirmModal();
+    });
+
+    confirmSubmit?.addEventListener('click', async () => {
+        confirmSubmit.setAttribute('disabled', 'disabled');
+        confirmSubmit.classList.add('opacity-70');
+
+        window.dispatchEvent(new CustomEvent('close-modal', { detail: 'confirm-offline-transaction' }));
+
+        try {
+            await handleSubmit();
+        } finally {
+            confirmSubmit.removeAttribute('disabled');
+            confirmSubmit.classList.remove('opacity-70');
+        }
+    });
+
+    installButton?.addEventListener('click', async () => {
+        if (!installPromptEvent) {
+            showMessage('warning', 'Buka menu browser lalu pilih "Add to Home Screen".');
+            return;
+        }
+
+        installPromptEvent.prompt();
+        await installPromptEvent.userChoice;
+        installPromptEvent = null;
+        installButton.classList.add('hidden');
     });
 
     addItemButton?.addEventListener('click', () => {
@@ -363,6 +416,11 @@ if (offlineRoot) {
     });
     window.addEventListener('offline', updateStatus);
     form?.querySelector('input[name="additional_fee"]')?.addEventListener('input', updateTotals);
+    window.addEventListener('beforeinstallprompt', (event) => {
+        event.preventDefault();
+        installPromptEvent = event;
+        revealInstallButton();
+    });
 
     typeButtons.forEach((button) => {
         button.addEventListener('click', () => {
@@ -396,6 +454,9 @@ if (offlineRoot) {
 
     updateStatus();
     renderQueue();
+    if (isIosDevice) {
+        revealInstallButton();
+    }
 
     itemsWrapper?.querySelectorAll('[data-offline-item]').forEach((row) => {
         bindRowEvents(row);

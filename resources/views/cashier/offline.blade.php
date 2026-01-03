@@ -22,6 +22,9 @@
                         </span>
                         Offline Ready
                         </span>
+                        <button type="button" id="install-app" class="hidden inline-flex items-center rounded-lg border border-amber-200 bg-amber-50 px-4 py-2 text-xs font-semibold text-amber-700">
+                            Tambah ke Home
+                        </button>
                         <button type="button" id="sync-now" class="inline-flex items-center rounded-lg bg-slate-900 px-4 py-2 text-xs font-semibold text-white">
                             Sync Sekarang
                         </button>
@@ -192,6 +195,24 @@
             </div>
         </div>
     </div>
+
+    <x-modal name="confirm-offline-transaction" focusable>
+        <div class="p-6">
+            <h2 class="text-lg font-semibold text-slate-900">Konfirmasi Transaksi</h2>
+            <p id="offline-confirm-message" class="mt-2 text-sm text-slate-600">
+                Pastikan data transaksi sudah benar sebelum disimpan.
+            </p>
+
+            <div class="mt-6 flex justify-end gap-3">
+                <x-secondary-button x-on:click="$dispatch('close')">
+                    Batal
+                </x-secondary-button>
+                <x-primary-button type="button" id="offline-confirm-submit">
+                    Konfirmasi & Simpan
+                </x-primary-button>
+            </div>
+        </div>
+    </x-modal>
 
     <template id="offline-item-template">
         <div class="grid gap-3 rounded-xl border border-slate-200 bg-white p-4 sm:grid-cols-6" data-offline-item>
